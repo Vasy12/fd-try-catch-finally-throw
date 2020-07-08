@@ -1,41 +1,20 @@
 'use strict';
 
-/**
- *
- * @param {number} base
- * @param {number} exponent
- * @returns {number}
- */
-const pow = (base, exponent) => {
+import validateUserValue from './validate.js';
 
-  if (isNaN( base ) || isNaN( exponent )) {
-    return NaN;
-  }
+const userInput = Number( prompt( 'Please inpout number between 10 and 40' ) );
 
-  if (typeof base !== 'number' || typeof exponent !== 'number') {
-    throw new TypeError( 'params base and exponent must be an numbers' );
-  }
-
-  if (!isFinite( base ) || !isFinite( exponent )) {
-    throw new RangeError();
-  }
-
-  if (exponent === 0) {
-    return 1;
-  }
-
-  if (exponent < 0) {
-    return 1 / pow( base, Math.abs( exponent ) );
-  }
-
-  return base * pow( base, exponent - 1 );
-
-};
-
-console.log( 'before' );
 try {
-  console.log( pow( '2', 3 ) );
+
+  const validatedUserValue = validateUserValue( userInput );
+  alert( `Your value is ${validatedUserValue}` );
+
 } catch (e) {
-  console.error( e );
+  if (e instanceof TypeError) {
+    alert( 'Incorrect value' );
+  } else if (e instanceof RangeError) {
+    alert( 'Your number is not between 10 and 40' );
+  } else {
+    alert( 'Some went wrong' );
+  }
 }
-console.log( 'after' );
