@@ -1,20 +1,44 @@
 'use strict';
 
-import validateUserValue from './validate.js';
+/**
+ *
+ * @param {number} n - source number value
+ * @returns {number} - factorial value of source value
+ * @throws {TypeError}
+ * @throws {RangeError}
+ */
+const factorial = n => {
 
-const userInput = Number( prompt( 'Please inpout number between 10 and 40' ) );
-
-try {
-
-  const validatedUserValue = validateUserValue( userInput );
-  alert( `Your value is ${validatedUserValue}` );
-
-} catch (e) {
-  if (e instanceof TypeError) {
-    alert( 'Incorrect value' );
-  } else if (e instanceof RangeError) {
-    alert( 'Your number is not between 10 and 40' );
-  } else {
-    alert( 'Some went wrong' );
+  if (typeof n !== 'number') {
+    throw new TypeError( 'param n must be an number value' );
   }
-}
+
+  if (!Number.isSafeInteger( n )) {
+    throw new RangeError();
+  }
+
+  if (n === 0) {
+    return 1;
+  }
+
+  return n * factorial( n - 1 );
+
+};
+
+const f = () => {
+  let result = null;
+
+  try {
+
+    result = 4;
+
+  } catch {
+
+    result = 'Error';
+
+  } finally {
+    return result;
+  }
+};
+
+console.log( 'funciton result = ', f() );
